@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+
+const { id } = Astro.params;
+const releases = await getCollection("releases");
+
+// Find the correct release entry
+const release = releases.find(r => r.id === id);
+
+if (!release) {
+  throw new Error(`Release not found: ${id}`);
+}
+
+export async function getStaticPaths() {
+  const releases = await getCollection("releases");
+  return releases.map(release => ({ params: { id: release.id } }));
+}
+---
+
+<head>
+  <title>{release.data.title} - {release.data.artist} | Ten Tremors</title>
+</head>
+
+<body class="bg-black text-white flex flex-col items-center">
+  <header class="w-full bg-gray-900 text-center py-12">
+    <h1 class="text-5xl font-bold">{release.data.title}</h1>
+    <h2 class="text-xl">{release.data.artist}</h2>
+  </header>
+
+  <img src={release.data.cover} alt={release.data.title} class="w-96 h-auto my-6"/>
+
+  <section class="max-w-3xl text-center">
+    <p class="text-lg">{release.data.description}</p>
+  </section>
+
+  <div class="mt-6 flex flex-wrap gap-4">
+    {release.data.streamingLinks && release.data.streamingLinks.map(link => (
+      <a href={link.url} target="_blank" class="text-blue-400 hover:underline">
+        Listen on {link.platform}
+      </a>
+    ))}
+  </div>
+</body>

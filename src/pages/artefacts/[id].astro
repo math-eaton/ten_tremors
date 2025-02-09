@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+
+const { id } = Astro.params;
+const artefacts = await getCollection("artefacts");
+
+// Find the correct artefact entry
+const artefact = artefacts.find(a => a.id === id);
+
+if (!artefact) {
+  throw new Error(`Artefact not found: ${id}`);
+}
+
+export async function getStaticPaths() {
+  const artefacts = await getCollection("artefacts");
+  return artefacts.map(artefact => ({ params: { id: artefact.id } }));
+}
+---
+
+<head>
+  <title>{artefact.data.name} - Ten Tremors</title>
+</head>
+
+<body class="bg-black text-white flex flex-col items-center">
+  <header class="w-full bg-gray-900 text-center py-12">
+    <h1 class="text-5xl font-bold">{artefact.data.name}</h1>
+  </header>
+
+  <img src={artefact.data.image} alt={artefact.data.name} class="w-96 h-auto my-6"/>
+
+  <section class="max-w-3xl text-center">
+    <p class="text-lg">{artefact.data.description}</p>
+  </section>
+
+  <a href={artefact.data.purchaseLink} target="_blank" class="mt-4 text-blue-400 hover:underline">
+    Buy Now for {artefact.data.price}
+  </a>
+</body>
