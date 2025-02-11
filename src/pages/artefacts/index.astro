@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+
+const artefacts = await getCollection('artefacts');
+---
+
+<html>
+  <head><title>Artefacts</title></head>
+  <body>
+    <h1>Artefacts</h1>
+    <ul>
+      {artefacts.map(artefact => (
+        <li>
+          <a href={`/artefacts/${artefact.id}`}>
+            <img src={artefact.data.image} alt={artefact.data.item} width="100" />
+            {artefact.data.item}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>

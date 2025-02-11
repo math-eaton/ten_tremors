@@ -8,19 +8,24 @@ const artists = await getCollection('artists');
 <html>
   <head><title>Releases</title></head>
   <body>
-    <h1>Releases</h1>
-    <ul>
+    <h1>catalog</h1>
+    <div>
       {releases.map(release => {
-        const artist = artists.find(a => a.id === release.data.artist);
+        const artist = release.data.artistId ? artists.find(a => a.id === release.data.artistId) : null;
+        const artistName = artist ? artist.data.name : null;
+
         return (
-          <li>
+          <div>
             <a href={`/releases/${release.id}`}>
               <img src={release.data.cover} alt={release.data.title} width="100" />
-              {release.data.title} by {artist?.data.name}
+              {release.data.title}
             </a>
-          </li>
+            <div>
+            {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : artistName}
+            </div>
+          </div>
         );
       })}
-    </ul>
+    </div>
   </body>
 </html>
