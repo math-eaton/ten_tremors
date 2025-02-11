@@ -1,0 +1,11 @@
+{
+  "slug": "john-doe",
+  "name": "John Doe",
+  "bio": "John Doe is a multi-genre artist blending electronic and rock influences.",
+  "image": "/images/artists/john-doe.jpg",
+  "discography": [
+    "album-one",
+    "album-two"
+  ],
+  "website": "https://johndoe.com"
+}

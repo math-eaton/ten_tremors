@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+
+const artists = await getCollection('artists');
+---
+
+<html>
+  <head><title>Artists</title></head>
+  <body>
+    <h1>Artists</h1>
+    <ul>
+      {artists.map(artist => (
+        <li>
+          <a href={`/artists/${artist.id}`}>
+            <img src={artist.data.image} alt={artist.data.name} width="100" />
+            {artist.data.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>

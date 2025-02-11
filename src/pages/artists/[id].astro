@@ -1,42 +1,40 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
+
+// Generate static paths dynamically
+export async function getStaticPaths() {
+  const artists = await getCollection('artists');
+  return artists.map(artist => ({
+    params: { id: artist.id }
+  }));
+}
 
 const { id } = Astro.params;
-const artists = await getCollection("artists");
-
-// Find the correct artist entry
+const artists = await getCollection('artists');
 const artist = artists.find(a => a.id === id);
 
-if (!artist) {
-  throw new Error(`Artist not found: ${id}`);
-}
+if (!artist) throw new Error(`Artist not found: ${id}`);
 
-export async function getStaticPaths() {
-  const artists = await getCollection("artists");
-  return artists.map(artist => ({ params: { id: artist.id } }));
-}
+const releases = (await getCollection('releases')).filter(r => r.data.artistId === id);
 ---
 
-<head>
-  <title>{artist.data.name} - Ten Tremors</title>
-</head>
+<html>
+  <head><title>{artist.data.name}</title></head>
+  <body>
+    <h1>{artist.data.name}</h1>
+    <img src={artist.data.image} alt={artist.data.name} />
+    <p>{artist.data.bio}</p>
+    {artist.data.website && <a href={artist.data.website}>Official Website</a>}
 
-<body class="bg-black text-white flex flex-col items-center">
-  <header class="w-full bg-gray-900 text-center py-12">
-    <h1 class="text-5xl font-bold">{artist.data.name}</h1>
-  </header>
-
-  {artist.data.image && (
-    <img src={artist.data.image} alt={artist.data.name} class="w-64 h-64 rounded-full my-6"/>
-  )}
-
-  <section class="max-w-3xl text-center">
-    <p class="text-lg">{artist.data.bio}</p>
-  </section>
-
-  {artist.data.website && (
-    <a href={artist.data.website} target="_blank" class="mt-4 text-blue-400 hover:underline">
-      Visit Website
-    </a>
-  )}
-</body>
+    <h2>Discography</h2>
+    {releases.length > 0 ? (
+      <ul>
+        {releases.map(release => (
+          <li><a href={`/releases/{release.id}`}>{release.data.title}</a></li>
+        ))}
+      </ul>
+    ) : (
+      <p>No releases found.</p>
+    )}
+  </body>
+</html>

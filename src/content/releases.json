@@ -1,0 +1,43 @@
+[
+    {
+      "id": "TT01",
+      "title": "Test Cassette 01",
+      "artistId": null,
+      "cover": "/images/releases/album-one.jpg",
+      "releaseDate": "2018-07-27",
+      "description": "A collection of various artists showcasing the best of the genre.",
+      "ffo": ["Clark", "Machinedrum", "Com Truise"],  
+      "streamingLinks": [
+        { "platform": "Spotify", "url": "https://open.spotify.com/album/xyz" },
+        { "platform": "Apple Music", "url": "https://music.apple.com/album/xyz" }
+      ]
+    },
+    {
+        "id": "TT02",
+        "title": "Body One / Body Two",
+        "artistId": "son-of",
+        "cover": "/images/releases/album-one.jpg",
+        "releaseDate": "2018-12-21",
+        "description": "A collection of A sides, B sides, demos, and itinerant bonus tracks comprise a formidable dual EP by Asheville-based artist son of (Jackson McMahon). Body One and Two combine into rusted, metallic basslines, apocalyptic breaks, and synthesized spaces that twist and stutter in turn before fading into a wash of stilted ambience.",
+        "ffo": ["Clark", "Machinedrum", "Com Truise"],  
+        "streamingLinks": [
+            { "platform": "Spotify", "url": "https://open.spotify.com/album/xyz" },
+            { "platform": "Apple Music", "url": "https://music.apple.com/album/xyz" }
+        ]
+    },
+    {
+        "id": "TT03",
+        "title": "roxbury & roxbury, too.",
+        "artistId": "harlan-muir",
+        "cover": "/images/releases/album-one.jpg",
+        "releaseDate": "2019-10-11",
+        "description": "Harlan Muirs latest double album, roxbury & roxbury, too., is pensive and faraway, sketching the sound of a drifting and hazy landscape that is at once alien and familiar. Muir alternately balances a surefooted confidence rooted in nostalgic backbeats with vulnerable and meandering interludes before falling into a rained-out muzak dream. Sparsely arranged with moonlit woodwind passages and minimal percussion lines, Muir’s warm instrumentation gives life to sparse and wistful polysynths while field recordings traverse frozen moments in time. The album transmits the quiet memory of two trips to Roxbury, New York.",  
+        "ffo": ["Loscil", "Felicia Atkinson", "Moon Diagrams", "Jefre Cantu-Ledesma"],  
+        "streamingLinks": [
+            { "platform": "Spotify", "url": "https://open.spotify.com/album/xyz" },
+            { "platform": "Apple Music", "url": "https://music.apple.com/album/xyz" }
+        ]
+    }
+
+  ]
+  
