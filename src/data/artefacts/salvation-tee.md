@@ -1,7 +1,7 @@
 ---
 id: "SALVATION"
 item: "SALVATION TEE"
-catalogNo: "TT12"
+catalogNo: null
 image: "/images/merch/band-tee-1.jpg"
 format: "apparel"
 price: 20.00
