@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { id: project.id }
+  }));
+}
+
+const { id } = Astro.params;
+const projects = await getCollection('projects');
+const project = projects.find(r => r.id === id);
+
+if (!project) throw new Error(`project not found: ${id}`);
+
+const artists = await getCollection('artists');
+// const artist = project.data.artistId ? artists.find(a => a.id === project.data.artistId) : null;
+// const artistName = artist ? artist.data.name : "TEST CASSETTE";
+---
+
+<html>
+  <head><title>{project.data.title}</title></head>
+  <body>
+    <h1>{project.data.title}</h1>
+    <img src={project.data.image} alt={project.data.title} />
+  </body>
+</html>

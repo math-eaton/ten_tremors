@@ -6,7 +6,7 @@
     height: 100%;
     user-select: none;
     cursor: url('../cursor/arrow.cur'), auto;
-    background-size: cover;
+    background-size: image;
     background-position: center;
     background-repeat: repeat;
     background-attachment: fixed;

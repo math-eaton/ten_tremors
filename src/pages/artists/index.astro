@@ -10,12 +10,12 @@ const artists = await getCollection('artists');
     <h1>Artists</h1>
     <ul>
       {artists.map(artist => (
-        <li>
+        <div>
           <a href={`/artists/${artist.id}`}>
             <img src={artist.data.image} alt={artist.data.name} width="100" />
             {artist.data.name}
           </a>
-        </li>
+        </div>
       ))}
     </ul>
   </body>

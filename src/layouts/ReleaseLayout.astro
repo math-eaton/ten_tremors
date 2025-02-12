@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+
+const { title, image, artistId, ffo, streamingLinks } = Astro.props;
+const artists = await getCollection('artists');
+const artist = artistId ? artists.find(a => a.id === artistId) : null;
+const artistName = artist ? artist.data.name : "Various Artists";
+---
+
+<html>
+  <head><title>{title}</title></head>
+  <body>
+    <h1>{title}</h1>
+    <img src={image} alt={title} />
+
+    <p>
+      by 
+      {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : artistName}
+    </p>
+
+    <h2>Description</h2>
+    <slot /> <!-- Markdown body content will appear here -->
+
+    <h2>FFO</h2>
+    <p>{ffo.length ? ffo.join(", ") : "N/A"}</p>
+
+    <h2>Streaming</h2>
+    <ul>
+      {streamingLinks.map(link => (
+        <li><a href={link.url}>{link.platform}</a></li>
+      ))}
+    </ul>
+  </body>
+</html>

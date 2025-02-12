@@ -17,7 +17,7 @@ const artists = await getCollection('artists');
         return (
           <div>
             <a href={`/releases/${release.id}`}>
-              <img src={release.data.cover} alt={release.data.title} width="100" />
+              <img src={release.data.image} alt={release.data.title} width="100" />
               {release.data.title}
             </a>
             <div>

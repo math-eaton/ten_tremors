@@ -1,44 +1,45 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
-// Generate static paths dynamically
 export async function getStaticPaths() {
   const releases = await getCollection('releases');
+  console.log(releases.map(release => release.id)); 
   return releases.map(release => ({
     params: { id: release.id }
   }));
 }
 
 const { id } = Astro.params;
-const releases = await getCollection('releases');
-const release = releases.find(r => r.id === id);
+const release = await getEntry('releases', id); 
 
 if (!release) throw new Error(`Release not found: ${id}`);
 
 const artists = await getCollection('artists');
 const artist = release.data.artistId ? artists.find(a => a.id === release.data.artistId) : null;
+const artistName = artist ? artist.data.name : "Various Artists";
 ---
 
 <html>
   <head><title>{release.data.title}</title></head>
   <body>
     <h1>{release.data.title}</h1>
-    <img src={release.data.cover} alt={release.data.title} />
-    
+    <img src={release.data.image} alt={release.data.title} />
+
     <p>
       by 
-      {artist ? <a href={`/artists/{artist.id}`}>{artist.data.name}</a> : "Various Artists"}
+      {artist ? <a href={`/artists/{artist.id}`}>{artistName}</a> : artistName}
     </p>
-    
-    <p>{release.data.description}</p>      
-    <p>ffo: {release.data.ffo.join(", ")}</p>
-    <p>released on {release.data.releaseDate}</p>
 
-    <h2>Listen</h2>
+    <h2>Description</h2>
+
+    <h2>FFO</h2>
+    <p>{release.data.ffo.join(", ")}</p>
+
+    <h2>Streaming</h2>
     <ul>
-      {release.data.streamingLinks.map((link: { platform: string; url: string }) => (
+      {release.data.streamingLinks.map(link => (
         <li><a href={link.url}>{link.platform}</a></li>
       ))}
     </ul>
-      </body>
+  </body>
 </html>

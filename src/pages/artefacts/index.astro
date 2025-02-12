@@ -8,15 +8,15 @@ const artefacts = await getCollection('artefacts');
   <head><title>Artefacts</title></head>
   <body>
     <h1>Artefacts</h1>
-    <ul>
+    <div>
       {artefacts.map(artefact => (
-        <li>
+        <div>
           <a href={`/artefacts/${artefact.id}`}>
             <img src={artefact.data.image} alt={artefact.data.item} width="100" />
             {artefact.data.item}
           </a>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   </body>
 </html>

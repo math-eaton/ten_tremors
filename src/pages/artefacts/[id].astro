@@ -1,38 +1,73 @@
 ---
-import { getCollection } from "astro:content";
-
-const { id } = Astro.params;
-const artefacts = await getCollection("artefacts");
-
-// Find the correct artefact entry
-const artefact = artefacts.find(a => a.id === id);
-
-if (!artefact) {
-  throw new Error(`Artefact not found: ${id}`);
-}
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const artefacts = await getCollection("artefacts");
-  return artefacts.map(artefact => ({ params: { id: artefact.id } }));
+  const artefacts = await getCollection('artefacts');
+  return artefacts.map(artefact => ({
+    params: { id: artefact.id }
+  }));
 }
+
+const { id } = Astro.params;
+const artefacts = await getCollection('artefacts');
+const releases = await getCollection('releases');
+
+const artefact = artefacts.find(a => a.id === id);
+if (!artefact) throw new Error(`Artefact not found: ${id}`);
+
+// Find the associated release (if applicable)
+const release = artefact.data.catalogNo ? releases.find(r => r.data.catalogNo === artefact.data.catalogNo) : null;
+
+// Merge metadata (release fields take priority if available)
+const mergedData = {
+  title: artefact.data.item || release?.data.title || "Untitled Artefact",
+  image: artefact.data.image || release?.data.image || "/images/default-placeholder.jpg",
+  artistId: release?.data.artistId || null,
+  releaseDate: release?.data.releaseDate || null,
+  ffo: release?.data.ffo || [],
+  streamingLinks: release?.data.streamingLinks || [],
+};
+
+const artist = mergedData.artistId ? (await getCollection('artists')).find(a => a.id === mergedData.artistId) : null;
+const artistName = artist ? artist.data.name : "Various Artists";
 ---
 
-<head>
-  <title>{artefact.data.name} - Ten Tremors</title>
-</head>
+<html>
+  <head><title>{mergedData.title}</title></head>
+  <body>
+    <h1>{mergedData.title}</h1>
+    <img src={mergedData.image} alt={mergedData.title} />
 
-<body class="bg-black text-white flex flex-col items-center">
-  <header class="w-full bg-gray-900 text-center py-12">
-    <h1 class="text-5xl font-bold">{artefact.data.name}</h1>
-  </header>
+    {release && (
+      <>
+        <p>Associated with the release: <a href={`/releases/${release.id}`}>{release.data.title}</a></p>
+      </>
+    )}
 
-  <img src={artefact.data.image} alt={artefact.data.name} class="w-96 h-auto my-6"/>
+    {artist && (
+      <p>by <a href={`/artists/${artist.id}`}>{artistName}</a></p>
+    )}
 
-  <section class="max-w-3xl text-center">
-    <p class="text-lg">{artefact.data.description}</p>
-  </section>
+    {mergedData.releaseDate && <p>Released on {mergedData.releaseDate}</p>}
 
-  <a href={artefact.data.purchaseLink} target="_blank" class="mt-4 text-blue-400 hover:underline">
-    Buy Now for {artefact.data.price}
-  </a>
-</body>
+    {mergedData.ffo.length > 0 && (
+      <>
+        <h2>For Fans Of</h2>
+        <p>{mergedData.ffo.join(", ")}</p>
+      </>
+    )}
+
+    {mergedData.streamingLinks.length > 0 && (
+      <>
+        <h2>Listen</h2>
+        <ul>
+          {mergedData.streamingLinks.map(link => (
+            <li><a href={link.url}>{link.platform}</a></li>
+          ))}
+        </ul>
+      </>
+    )}
+
+    <h2>Description</h2>
+  </body>
+</html>
