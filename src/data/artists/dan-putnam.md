@@ -1,7 +1,7 @@
 ---
 id: "dan-putnam"
-name: "dan putnam"
-image: "/images/artists/son-of.jpg"
+name: "Dan Putnam"
+image: "/images/artists/dan-putnam.jpg"
 discography: ["TT01"]
 website: "https://www.dputnam.net/"
 ---

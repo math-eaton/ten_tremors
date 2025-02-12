@@ -22,10 +22,9 @@ const releases = (await getCollection('releases')).filter(r => r.data.artistId =
   <body>
     <h1>{artist.data.name}</h1>
     <img src={artist.data.image} alt={artist.data.name} />
-    <p>{artist.data.website && <a href={artist.data.website}>Official Website</a>}</p>
+    <p>{artist.data.website && <a href={artist.data.website}>site</a>}</p>
 
     <h2>Bio</h2>
-    <Markdown>{artist.body}</Markdown>
 
     <h2>Discography</h2>
     {releases.length > 0 ? (
