@@ -63,9 +63,21 @@ const projectsCollection = defineCollection({
   }),
 });
 
+const eventsCollection = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/data/events" }),
+  schema: z.object({
+    event: z.string(),
+    date: z.string(),
+    location: z.string(),
+    image: z.string(),
+    description: z.string(),
+  }),
+});
+
 export const collections = {
   artists: artistsCollection,
   releases: releasesCollection,
   artefacts: artefactsCollection,
   projects: projectsCollection,
+  events: eventsCollection,
 };
