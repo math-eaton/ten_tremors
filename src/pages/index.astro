@@ -1,13 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import CollectionLayout from '../layouts/collectionLayout.astro';
+const title = 'home';
 ---
-
-<head>
-  <title>home</title>
-  <link rel="stylesheet" href="/src/styles/global.css" />
-</head>
-
-
+<CollectionLayout title={title}>
 <body class="flex flex-col items-center">
   <header class="w-full text-center py-12">
     <h1 class="text-5xl font-bold">TEN TREMORS</h1>
@@ -23,3 +19,4 @@ import { getCollection } from "astro:content";
   <img src="underConstruction.gif" alt="under construction!" style="padding: 10vh;"/>
 
 </body>
+</CollectionLayout>
