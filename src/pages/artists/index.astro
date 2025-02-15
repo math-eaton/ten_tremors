@@ -1,15 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
-import CollectionLayout from '../../layouts/collectionLayout.astro';
+import CollectionLayout from '../../layouts/boilerplate.astro';
 
 const artists = await getCollection('artists');
-const title = 'artists';
+const pageTitle = 'artists';
 ---
 
 <html>
-  <head><title>Artists</title></head>
   <body>
-    <CollectionLayout title={title}>
+    <CollectionLayout title={pageTitle}>
     <ul>
       {artists.map(artist => (
         <div>

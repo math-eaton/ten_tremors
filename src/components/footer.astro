@@ -1,0 +1,35 @@
+---
+import Social from "./social.astro"
+---
+<style>
+    footer {
+        position: fixed;
+        width: 100vw;
+        bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        list-style-type: none;
+    }
+    ul {
+        display: flex;
+        justify-content: center;
+        gap: 0rem;
+    }
+    small {
+        text-align: center;
+        text-decoration: none;
+    }
+    </style>
+
+<footer>
+    <ul>
+        <a href="/about/">info</a>
+        <a href="https://tentremors.bandcamp.com/">bandcamp</a>
+        <Social platform="instagram" endpoint="tentremors" /> 
+        <Social platform="ninaprotocol" endpoint="hubs/ten-tremors" />
+    </ul>
+    <small>
+        <a href="/">&#169; 2025 TEN TREMORS</a>
+    </small>
+</footer>

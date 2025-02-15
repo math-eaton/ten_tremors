@@ -1,14 +1,14 @@
 ---
-import CollectionLayout from '../../layouts/collectionLayout.astro';
+import CollectionLayout from '../../layouts/boilerplate.astro';
 import { getCollection } from 'astro:content';
 
 const releases = await getCollection('releases');
 const artists = await getCollection('artists');
 
-const title = 'Releases';
+const pageTitle = 'Releases';
 ---
 
-<CollectionLayout title={title}>
+<CollectionLayout title={pageTitle}>
   <ul>
     {releases.map(release => {
       const artist = release.data.artistId ? artists.find(a => a.id === release.data.artistId) : null;

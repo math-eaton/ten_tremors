@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import eyeLogo from '../images/eyeLogo.svg';
+import { Icon } from 'astro-icon/components'
+---
+<style>
+header {
+    width: 100%;
+    top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style-type: none;
+}
+ul {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    list-style-type: none;
+}
+
+[data-icon] {
+    color: black;
+    filter: invert() drop-shadow(0 0 0.75rem rgb(255, 255, 255));
+    mix-blend-mode: hard-light;
+}
+
+</style>
+
+<header>
+    <ul>
+        <a href="/releases/">releases</a>
+        <a href="/artefacts/">artefacts</a> 
+        <a href="/"><Icon name="eyeLogo" /></a>
+        <a href="/projects/">projects</a>  
+        <a href="/calendar/">calendar</a>
+    </ul>
+</header>

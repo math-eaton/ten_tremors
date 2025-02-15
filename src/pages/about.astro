@@ -1,10 +1,18 @@
-<body>
-    <a href="/">home</a>
-    <a href="/about/">about</a>
-    <a href="/artists/">artists</a>
-    <a href="/releases/">releases</a>
-    <a href="/artefacts/">artefacts</a> 
-    <a href="/projects/">projects</a>  
-    <br>
-    <p>Lorem ipsum etc</p>
-</body>
+---
+import CollectionLayout from '../layouts/boilerplate.astro';
+const pageTitle = 'info';
+---
+
+<html>
+  <body>
+    <CollectionLayout title={pageTitle}>
+
+    <p>Ten Tremors is a collective of experimental musicians, writers, video artists, printmakers, & computational designers.</p>
+
+    <p>Our geographic center of mass is in New York, New York.</p>
+
+    <p>@tentremors // tentremors at gmail dot com</p>
+    
+  </body>
+</html>
+  </CollectionLayout>

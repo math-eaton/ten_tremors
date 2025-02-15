@@ -1,13 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
-import CollectionLayout from '../../layouts/collectionLayout.astro';
+import CollectionLayout from '../../layouts/boilerplate.astro';
 
 const projects = await getCollection('projects');
-const title = 'projects';
+const pageTitle = 'projects';
 ---
 
-<CollectionLayout title={title}>
-  <h1>affiliated projects</h1>
+<CollectionLayout pageTitle={pageTitle}>
   <ul>
     {projects.map(project => (
       <p>

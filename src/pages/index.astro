@@ -1,22 +1,13 @@
 ---
-import { getCollection } from "astro:content";
-import CollectionLayout from '../layouts/collectionLayout.astro';
-const title = 'home';
+import CollectionLayout from '../layouts/boilerplate.astro';
+const pageTitle = 'home';
 ---
-<CollectionLayout title={title}>
-<body class="flex flex-col items-center">
-  <header class="w-full text-center py-12">
-    <h1 class="text-5xl font-bold">TEN TREMORS</h1>
-  </header>
+<CollectionLayout title={pageTitle}>
 
-  <nav class="w-full flex justify-center gap-8 my-8">
-    <a href="/artists" class="text-lg font-semibold hover:underline">PPL</a>
-    <a href="/releases" class="text-lg font-semibold hover:underline">SOUND</a>
-    <a href="/artefacts" class="text-lg font-semibold hover:underline">ARTEFACT</a>
-    <a href="/projects" class="text-lg font-semibold hover:underline">NET</a>
-  </nav>
-
-  <img src="underConstruction.gif" alt="under construction!" style="padding: 10vh;"/>
+<body>
+  <div>
+  <img src="underConstruction.gif" alt="under construction!" style="width: 50%; display: flex; justify-content: center;"/>
+  </div>
 
 </body>
 </CollectionLayout>
