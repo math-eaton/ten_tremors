@@ -1,31 +1,30 @@
 ---
+import CollectionLayout from '../../layouts/collectionLayout.astro';
 import { getCollection } from 'astro:content';
 
 const releases = await getCollection('releases');
 const artists = await getCollection('artists');
+
+const title = 'Releases';
 ---
 
-<html>
-  <head><title>Releases</title></head>
-  <body>
-    <h1>catalog</h1>
-    <div>
-      {releases.map(release => {
-        const artist = release.data.artistId ? artists.find(a => a.id === release.data.artistId) : null;
-        const artistName = artist ? artist.data.name : null;
+<CollectionLayout title={title}>
+  <ul>
+    {releases.map(release => {
+      const artist = release.data.artistId ? artists.find(a => a.id === release.data.artistId) : null;
+      const artistName = artist ? artist.data.name : null;
 
-        return (
+      return (
+        <div>
+          <a href={`/releases/${release.id}`}>
+            <img src={release.data.image} alt={release.data.title} width="100" />
+            {release.data.title}
+          </a>
           <div>
-            <a href={`/releases/${release.id}`}>
-              <img src={release.data.image} alt={release.data.title} width="100" />
-              {release.data.title}
-            </a>
-            <div>
             {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : artistName}
-            </div>
           </div>
-        );
-      })}
-    </div>
-  </body>
-</html>
+        </div>
+      );
+    })}
+  </ul>
+</CollectionLayout>

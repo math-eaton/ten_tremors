@@ -1,18 +1,16 @@
 ---
 import { getCollection } from "astro:content";
-
-const artists = await getCollection("artists");
-const releases = await getCollection("releases");
-const artefacts = await getCollection("artefacts");
 ---
 
 <head>
   <title>home</title>
+  <link rel="stylesheet" href="/src/styles/global.css" />
 </head>
 
-<body class="bg-black text-white flex flex-col items-center">
-  <header class="w-full bg-gray-900 text-center py-12">
-    <h1 class="text-5xl font-bold">ten tremors</h1>
+
+<body class="flex flex-col items-center">
+  <header class="w-full text-center py-12">
+    <h1 class="text-5xl font-bold">TEN TREMORS</h1>
   </header>
 
   <nav class="w-full flex justify-center gap-8 my-8">
@@ -21,5 +19,7 @@ const artefacts = await getCollection("artefacts");
     <a href="/artefacts" class="text-lg font-semibold hover:underline">ARTEFACT</a>
     <a href="/projects" class="text-lg font-semibold hover:underline">NET</a>
   </nav>
+
+  <img src="underConstruction.gif" alt="under construction!" style="padding: 10vh;"/>
 
 </body>

@@ -1,0 +1,11 @@
+---
+const { release, artist } = Astro.props;
+const artistName = artist ? artist.data.name : "Various Artists";
+---
+
+<h1>{release.data.title}</h1>
+<img src={release.data.cover} alt={release.data.title} />
+
+<p>
+  by {artist ? <a href={`/artists/{artist.id}`}>{artistName}</a> : artistName}
+</p>

@@ -1,5 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+import CollectionLayout from '../../layouts/collectionLayout.astro';
+import ArtefactInfo from '../../components/details-artefact.astro';
 
 export async function getStaticPaths() {
   const artefacts = await getCollection('artefacts');
@@ -9,63 +11,14 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.params;
-const artefacts = await getCollection('artefacts');
-const releases = await getCollection('releases');
+const artefact = await getEntry('artefacts', id);
 
-const artefact = artefacts.find(a => a.id === id);
 if (!artefact) throw new Error(`Artefact not found: ${id}`);
 
-// Find the associated release (if applicable)
+const releases = await getCollection('releases');
 const release = artefact.data.catalogNo ? releases.find(r => r.data.catalogNo === artefact.data.catalogNo) : null;
-
-// Merge metadata (release fields take priority if available)
-const mergedData = {
-  title: artefact.data.item || release?.data.title || "Untitled Artefact",
-  image: artefact.data.image || release?.data.image || "/images/default-placeholder.jpg",
-  artistId: release?.data.artistId || null,
-  releaseDate: release?.data.releaseDate || null,
-  ffo: release?.data.ffo || [],
-  streamingLinks: release?.data.streamingLinks || [],
-};
-
-const artist = mergedData.artistId ? (await getCollection('artists')).find(a => a.id === mergedData.artistId) : null;
-const artistName = artist ? artist.data.name : "Various Artists";
 ---
 
-<html>
-  <head><title>{mergedData.title}</title></head>
-  <body>
-    <h1>{mergedData.title}</h1>
-    <img src={mergedData.image} alt={mergedData.title} />
-
-    {release && (
-      <>
-        <p>Associated with the release: <a href={`/releases/${release.id}`}>{release.data.title}</a></p>
-      </>
-    )}
-
-    {artist && (
-      <p>by <a href={`/artists/${artist.id}`}>{artistName}</a></p>
-    )}
-
-    {mergedData.releaseDate && <p>Released on {mergedData.releaseDate}</p>}
-
-    {mergedData.ffo.length > 0 && (
-      <>
-        <h2>For Fans Of</h2>
-        <p>{mergedData.ffo.join(", ")}</p>
-      </>
-    )}
-
-    {mergedData.streamingLinks.length > 0 && (
-      <>
-        <h2>Listen</h2>
-        <ul>
-          {mergedData.streamingLinks.map(link => (
-            <li><a href={link.url}>{link.platform}</a></li>
-          ))}
-        </ul>
-      </>
-    )}
-  </body>
-</html>
+<CollectionLayout title={artefact.data.item}>
+  <ArtefactInfo artefact={artefact} release={release} />
+</CollectionLayout>

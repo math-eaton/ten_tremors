@@ -1,13 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
+import CollectionLayout from '../../layouts/collectionLayout.astro';
 
 const artists = await getCollection('artists');
+const title = 'artists';
 ---
 
 <html>
   <head><title>Artists</title></head>
   <body>
-    <h1>Artists</h1>
+    <CollectionLayout title={title}>
     <ul>
       {artists.map(artist => (
         <div>
@@ -20,3 +22,4 @@ const artists = await getCollection('artists');
     </ul>
   </body>
 </html>
+  </CollectionLayout>

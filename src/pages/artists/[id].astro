@@ -1,5 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+import CollectionLayout from '../../layouts/collectionLayout.astro';
+import ArtistInfo from '../../components/details-artist.astro';
 
 export async function getStaticPaths() {
   const artists = await getCollection('artists');
@@ -9,32 +11,24 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.params;
-const artists = await getCollection('artists');
-const artist = artists.find(a => a.id === id);
+const artist = await getEntry('artists', id);
 
 if (!artist) throw new Error(`Artist not found: ${id}`);
 
 const releases = (await getCollection('releases')).filter(r => r.data.artistId === id);
 ---
 
-<html>
-  <head><title>{artist.data.name}</title></head>
-  <body>
-    <h1>{artist.data.name}</h1>
-    <img src={artist.data.image} alt={artist.data.name} />
-    <p>{artist.data.website && <a href={artist.data.website}>site</a>}</p>
+<CollectionLayout title={artist.data.name}>
+  <ArtistInfo artist={artist} />
 
-    <h2>Bio</h2>
-
-    <h2>Discography</h2>
-    {releases.length > 0 ? (
-      <ul>
-        {releases.map(release => (
-          <li><a href={`/releases/{release.id}`}>{release.data.title}</a></li>
-        ))}
-      </ul>
-    ) : (
-      <p>No releases found.</p>
-    )}
-  </body>
-</html>
+  <h2>Discography</h2>
+  {releases.length > 0 ? (
+    <ul>
+      {releases.map(release => (
+        <li><a href={`/releases/{release.id}`}>{release.data.title}</a></li>
+      ))}
+    </ul>
+  ) : (
+    <p>No releases found.</p>
+  )}
+</CollectionLayout>

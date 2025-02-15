@@ -1,22 +1,21 @@
 ---
 import { getCollection } from 'astro:content';
+import CollectionLayout from '../../layouts/collectionLayout.astro';
 
 const artefacts = await getCollection('artefacts');
+const title = 'artefacts';
 ---
 
-<html>
-  <head><title>Artefacts</title></head>
-  <body>
-    <h1>Artefacts</h1>
-    <div>
-      {artefacts.map(artefact => (
-        <div>
-          <a href={`/artefacts/${artefact.id}`}>
-            <img src={artefact.data.image} alt={artefact.data.item} width="100" />
-            {artefact.data.item}
-          </a>
-        </div>
-      ))}
-    </div>
-  </body>
-</html>
+<CollectionLayout title={title}>
+  <ul>
+    {artefacts.map(artefact => (
+      <p>
+        <a href={`/artefacts/${artefact.id}`}>
+          <img src={artefact.data.image} alt={artefact.data.item} width="100" />
+          {artefact.data.item} - ${artefact.data.price.toFixed(2)}
+        </a>
+      </p>
+    ))}
+  </ul>
+</CollectionLayout>
+
