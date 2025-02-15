@@ -1,12 +1,29 @@
 ---
 import CollectionLayout from '../layouts/boilerplate.astro';
+import { Image } from 'astro:assets';
+import stamps from '../images/stamps.png';
 const pageTitle = 'home';
 ---
+<style>
+  div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+  }
+  
+  img{
+    width: 66.6%;
+    height: auto;
+    /* filter: drop-shadow(0rem 0rem 0.25rem rgba(231, 231, 231, 0.709)); */
+  }
+</style>
+
 <CollectionLayout title={pageTitle}>
 
 <body>
   <div>
-  <img src="underConstruction.gif" alt="under construction!" style="width: 50%; display: flex; justify-content: center;"/>
+    <Image src={stamps} alt="tentremors logo">
   </div>
 
 </body>
