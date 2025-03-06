@@ -21,7 +21,7 @@ const releasesCollection = defineCollection({
     artistId: z.string().nullable(),
     catalogNo: z.string(),
     image: z.string(),
-    releaseDate: z.string(),
+    releaseDate: z.date(),
     ffo: z.array(z.string()),
     streamingLinks: z.array(z.object({
       platform: z.string(),
@@ -68,7 +68,7 @@ const eventsCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/data/events" }),
   schema: z.object({
     event: z.string(),
-    date: z.string(),
+    date: z.date(),
     location: z.string(),
     image: z.string(),
     description: z.string(),

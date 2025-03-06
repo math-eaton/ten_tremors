@@ -10,24 +10,41 @@ const pageTitle = 'home';
     flex-direction: column;
     align-items: center;
   }
+
+  div {
+    /* padding: 1rem; */
+  }
   
   img {
-    width: 66.6%;
+    position: fixed;
+    width: 100%;
     height: auto;
-    /* filter: drop-shadow(0rem 0rem 0.25rem rgba(231, 231, 231, 0.709)); */
+    transition: transform 0.3s ease-in-out;
+    transform-origin: 100% -25%;
+    z-index: -1;
   }
 
+  img:hover {
+    /* transform: scale(1.1); */
+  }
+
+  @media (max-width: 768px) {
+    img {
+      scale: 200%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    img {
+      scale: 200%;
+    }
+  }
 </style>
 
 <CollectionLayout title={pageTitle}>
-
-<body>
-  <div class="container">
-    <Image src={stamps} alt="tentremors logo">
-  </div>
-  <div class="container">
-    <p>our home is under construction</p>
-    <p>bless this mess</p>
-  </div>
-</body>
+  <body>
+    <div class="container">
+      <Image src={stamps} alt="tentremors logo">
+    </div>
+  </body>
 </CollectionLayout>

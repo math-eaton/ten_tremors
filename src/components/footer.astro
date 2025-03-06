@@ -2,35 +2,62 @@
 import Social from "./social.astro"
 ---
 <style>
+    body, html {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    main {
+        flex: 1;
+    }
     footer {
-        position: relative;
-        width: 100vw;
-        bottom: 1rem;
-        padding-top: 10vh;
+        width: 100%;
+        list-style-type: none;
+
+    }
+
+    div {
+
         display: flex;
         flex-direction: column;
         justify-content: center;
-        list-style-type: none;
-    }
-    ul {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-    }
-    small {
-        text-align: center;
-        text-decoration: none;
+        margin-left: 2vw;
+
     }
 
-    </style>
+    ul{
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+    }
+
+    small {
+        right: 50%;
+        bottom: 0;
+        padding-bottom: 2vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+</style>
+
+<main>
+    <!-- Your main content goes here -->
+</main>
 
 <footer>
-    <ul>
-        <a href="https://tentremors.bandcamp.com/">bandcamp</a>
-        <Social platform="instagram" endpoint="tentremors" /> 
-        <Social platform="ninaprotocol" endpoint="hubs/ten-tremors" />
-    </ul>
-    <small>
-        <a href="/">&#169; 2025 ten tremors</a>
-    </small>
+    <div>
+        <ul>
+            <a href="https://tentremors.bandcamp.com/">bandcamp</a>
+            <Social platform="instagram" endpoint="tentremors" /> 
+            <Social platform="ninaprotocol" endpoint="hubs/ten-tremors" />
+        </ul>  
+    </div>
+    <div>
+        <small>     
+            <p>our home is under construction / bless this mess</p>
+            <a href="/">&#169; 2025 ten tremors</a>
+        </small>
+    </div>
 </footer>

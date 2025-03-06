@@ -13,23 +13,18 @@
     src: url("Ac437_ToshibaTxL1_8x16.woff2") format("woff2"), url("Ac437_ToshibaTxL1_8x16.woff") format("woff"), url("Ac437_ToshibaTxL1_8x16.ttf") format("truetype");
 } */
     
-
     body {
         /* background-color: #808080; */
         background-color: #515151;
-        /* font-family: Times, serif; */
-        font-family:Arial, Helvetica, sans-serif;
-        color:rgb(200, 200, 200);
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(200, 200, 200);
         overflow-x: hidden;
-    
-    }
-
-    div {
-        padding: 1rem;
+        margin: 0;
+        padding: 0;
     }
 
     a {
-        color:rgb(200, 200, 200);
+        color: rgb(200, 200, 200);
         text-decoration: none;
     }
 
@@ -39,14 +34,45 @@
         /* text-decoration: underline; */
     }
 
+    ul {
+        padding: 0;
+    }
 
     * {
-
         /* text-transform: lowercase; */
         /* mix-blend-mode: luminosity; */
+        box-sizing: border-box;
+    }
+
+    /* Responsive font sizing */
+    html {
+        font-size: 100%;
+    }
+
+    small {
+            font-size: 75%;
+        }
+
+
+    @media (max-width: 768px) {
+        html {
+            font-size: 150%;
+        }
+
+        small {
+            font-size: 66.6%;
+        }
 
     }
 
+    /* @media (max-width: 576px) {
+        html {
+            font-size: 150%;
+        }
 
+        small {
+            font-size: 50%;
+        }
+    } */
 
-  </style>
+</style>

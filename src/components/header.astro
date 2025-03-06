@@ -3,22 +3,24 @@ import { Icon } from 'astro-icon/components'
 ---
 <style>
 header {
-    width: 100%;
-    top: 1rem;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    list-style-type: none;
+    border-bottom: 1px solid rgb(200,200,200);
 }
+
 ul {
     display: flex;
-    justify-content: center;
-    gap: 1rem;
+    flex-direction: column;
+    justify-content: left;
     list-style-type: none;
 }
 
 a {
-    padding: 1rem;
+    /* padding: 0.5rem;
+    margin: -0.25rem; */
+}
+
+div{
+    margin-left: 2vw;
 }
 
 [data-icon] {
@@ -31,11 +33,13 @@ a {
 </style>
 
 <header>
-    <ul>
-        <a href="/releases/">releases</a>
-        <a href="/about/">info</a>
-        <a href="/"><Icon name="eyeLogo" /></a>
-        <a href="/projects/">projects</a>  
-        <a href="/calendar/">calendar</a>
-    </ul>
+    <div>
+        <ul>
+            <a href="/"><Icon name="eyeLogo" /></a>
+            <a href="/releases/">releases</a>
+            <a href="/about/">info</a>
+            <a href="/projects/">projects</a>  
+            <a href="/calendar/">calendar</a>
+        </ul>
+    </div>
 </header>

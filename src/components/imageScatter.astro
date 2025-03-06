@@ -1,0 +1,124 @@
+---
+/*
+  Example: ScatterImages.astro
+
+  Place this Astro component wherever you'd like the images to appear.
+  It:
+   1. Defines a container for the images.
+   2. Uses JavaScript to load images from a directory (e.g. /src/images/scatter/).
+   3. Positions each image randomly without overlap.
+*/
+
+// List your image filenames here:
+const imageFilenames = [
+  'img1.png',
+  'img2.png',
+  'img3.png',
+  // ... add more as needed
+];
+---
+
+<style>
+  /* Make sure the container is position: relative so we can absolutely place the images. */
+  .scatter-container {
+    position: relative;
+    width: 600px;     /* Adjust to your needs or use a responsive approach */
+    height: 400px;    /* Adjust to your needs or use a responsive approach */
+    border: 1px solid #ccc;
+    overflow: hidden; /* Prevent images from spilling outside the container */
+  }
+
+  /* Optional styling for images */
+  .scatter-container img {
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+</style>
+
+<div class="scatter-container" id="scatter-container"></div>
+
+<script>
+  // Helper function: Checks whether two elements overlap
+  function elementsOverlap(el1, el2) {
+    const rect1 = el1.getBoundingClientRect();
+    const rect2 = el2.getBoundingClientRect();
+
+    return !(
+      rect1.right < rect2.left ||
+      rect1.left > rect2.right ||
+      rect1.bottom < rect2.top ||
+      rect1.top > rect2.bottom
+    );
+  }
+
+  function placeImagesRandomly(containerId, filenames) {
+    const container = document.getElementById(containerId);
+    const containerRect = container.getBoundingClientRect();
+
+    // Keep track of placed images so we can test overlap
+    const placedImages = [];
+
+    // Load each image, then position it
+    filenames.forEach((filename) => {
+      const img = document.createElement('img');
+      img.src = `/src/images/scatter/${filename}`; // Adjust path if needed
+      img.style.position = 'absolute';
+      img.style.visibility = 'hidden'; // Hide while positioning
+
+      // Once the image is loaded, we know its dimensions
+      img.addEventListener('load', () => {
+        const imgWidth = img.naturalWidth;
+        const imgHeight = img.naturalHeight;
+
+        // We'll attempt to find a random position that doesn't overlap
+        const maxAttempts = 50;
+        let attempts = 0;
+        let placed = false;
+
+        while (!placed && attempts < maxAttempts) {
+          // Randomly choose a left/top within container bounds
+          const maxLeft = containerRect.width - imgWidth;
+          const maxTop = containerRect.height - imgHeight;
+          const randLeft = Math.floor(Math.random() * maxLeft);
+          const randTop = Math.floor(Math.random() * maxTop);
+
+          // Apply position
+          img.style.left = randLeft + 'px';
+          img.style.top = randTop + 'px';
+
+          // Check for overlap with already placed images
+          let overlapFound = false;
+          for (const placedImg of placedImages) {
+            if (elementsOverlap(img, placedImg)) {
+              overlapFound = true;
+              break;
+            }
+          }
+
+          if (!overlapFound) {
+            // Position is good, finalize
+            img.style.visibility = 'visible';
+            placedImages.push(img);
+            placed = true;
+          }
+
+          attempts++;
+        }
+
+        if (!placed) {
+          // If we couldn't place it without overlap, remove the img or handle accordingly
+          container.removeChild(img);
+          console.warn(`Could not place image ${filename} without overlap.`);
+        }
+      });
+
+      // Add the image to the container
+      container.appendChild(img);
+    });
+  }
+
+  // Run this function once the page finishes loading
+  window.addEventListener('DOMContentLoaded', () => {
+    placeImagesRandomly('scatter-container', /* pass your filenames: */ imageFilenames);
+  });
+</script>
