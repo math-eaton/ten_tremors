@@ -1,57 +1,28 @@
 ---
 import CollectionLayout from '../../layouts/boilerplate.astro';
 import { getCollection } from 'astro:content';
+import CatalogGrid from '../../components/catalogCells.astro';
 
-const releases = (await getCollection('releases'))
-  .sort((a, b) => {
-    const numA = parseInt(a.data.catalogNo.replace(/\D/g, ""), 10);
-    const numB = parseInt(b.data.catalogNo.replace(/\D/g, ""), 10);
-    return numB - numA; // Descending order
-  });
-
-const artists = await getCollection('artists');
+// Fetch collections
+const releases = await getCollection('releases');
 const artefacts = await getCollection('artefacts');
+const artists = await getCollection('artists');
+
+// Ensure releases are sorted in reverse order based on catalog number
+releases.sort((a, b) => {
+  const numA = parseInt(a.data.catalogNo.replace(/\D/g, ""), 10);
+  const numB = parseInt(b.data.catalogNo.replace(/\D/g, ""), 10);
+  return numB - numA;
+});
+
+// Debug logs
+// console.log("index.astro releases:", releases);
+// console.log("index.astro artists:", artists);
+// console.log("index.astro artefacts:", artefacts);
 
 const pageTitle = 'Releases';
 ---
 
 <CollectionLayout title={pageTitle}>
-  <div class="catalog">
-    {releases.map((release, index) => {
-      const artist = release.data.artistId ? artists.find(a => a.id === release.data.artistId) : null;
-      const artistName = artist ? artist.data.name : '';
-    
-      // Find matching artefacts for this release
-      const releaseArtefacts = artefacts.filter(a => a.data.catalogNo === release.data.catalogNo);
-    
-      return (
-        <>
-          <div class={`row ${index % 2 === 0 ? 'row-even' : 'row-odd'}`}>
-            <div class="col catalog-no">{release.data.catalogNo}</div>
-            <div class="col artist">
-              {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : artistName}
-            </div>
-            <div class="col title">
-              <a href={`/releases/${release.id}`}>{release.data.title}</a>
-            </div>
-            <div class="col format">
-              {releaseArtefacts.length > 0 
-                ? releaseArtefacts.map(artefact => (
-                    <a href={`/artefacts/${artefact.id}`} key={artefact.id}>
-                      {artefact.data.item}
-                    </a>
-                  ))
-                : "N/A"
-              }
-            </div>
-            <div class="col year">{new Date(release.data.releaseDate).getFullYear()}</div>
-          </div>
-    
-          {/* Insert separator except for last item */}
-          {index < releases.length - 1 && <div class="separator"></div>}
-        </>
-      );
-    })}
-        
-  </div>
+  <CatalogGrid releases={releases} artists={artists} artefacts={artefacts} />
 </CollectionLayout>

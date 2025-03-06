@@ -1,6 +1,6 @@
 ---
 id: "TT01-CS"
-item: "Test Cassette 01 (CASSETTE TAPE)"
+item: "Test Cassette 01 (CS)"
 catalogNo: "TT01"
 image: "/images/releases/album-one.jpg"
 format: "cassette"

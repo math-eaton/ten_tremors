@@ -1,6 +1,6 @@
 ---
 id: "TT10-CS"
-item: "STRESSTEST (CASSETTE TAPE)"
+item: "STRESSTEST (CS)"
 catalogNo: "TT10"
 image: "/images/releases/album-one.jpg"
 format: "cassette"

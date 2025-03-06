@@ -1,6 +1,6 @@
 ---
 id: "TT02-CS"
-item: "Body One / Body Two (CASSETTE TAPE)"
+item: "Body One / Body Two (CS)"
 catalogNo: "TT02"
 image: "/images/releases/album-one.jpg"
 format: "cassette"

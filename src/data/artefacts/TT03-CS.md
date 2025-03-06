@@ -1,6 +1,6 @@
 ---
 id: "TT03-CS"
-item: "roxbury & roxbury, too. (CASSETTE TAPE)"
+item: "roxbury & roxbury, too. (CS)"
 catalogNo: "TT03"
 image: "/images/releases/album-one.jpg"
 format: "cassette"

@@ -42,6 +42,7 @@ const artefactsCollection = defineCollection({
     item: z.string(),
     catalogNo: z.string(), // Links to a release
     image: z.string(),
+    format: z.string(),
     price: z.number(),
     stock: z.number().int(),
   }),

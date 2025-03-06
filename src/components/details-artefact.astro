@@ -6,16 +6,16 @@ const { artefact, release } = Astro.props;
 <img src={artefact.data.image} alt={artefact.data.item} />
 
 {release && (
-  <p>Associated with: <a href={`/releases/{release.id}`}>{release.data.title}</a></p>
+  <p>digital link: <a href={`/releases/{release.id}`}>{release.data.title}</a></p>
 )}
 
-<p>Format: {artefact.data.format}</p>
-<p>Price: ${artefact.data.price.toFixed(2)}</p>
-<p>Stock: {artefact.data.stock} available</p>
+<p>{artefact.data.format}</p>
+<p>${artefact.data.price.toFixed(2)}</p>
+<p>{artefact.data.stock} remaining</p>
 
 {artefact.data.sizeOptions && (
   <>
-    <h2>Available Sizes</h2>
+    <h2>sizes</h2>
     <ul>
       {artefact.data.sizeOptions.map((size: string) => <li>{size}</li>)}
     </ul>

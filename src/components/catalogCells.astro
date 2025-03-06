@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+
+const releases = (await getCollection('releases'))
+  .sort((a, b) => {
+    const numA = parseInt(a.data.catalogNo.replace(/\D/g, ""), 10);
+    const numB = parseInt(b.data.catalogNo.replace(/\D/g, ""), 10);
+    return numB - numA; // Descending order
+  });
+
+const artists = await getCollection('artists');
+const artefacts = await getCollection('artefacts');
+---
+<style>
+
+    .catalog {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .row {
+    display: grid;
+    grid-template-columns: 15% 30% 30% 20% 5%;
+    padding: 1vh;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+    }
+
+    .row-even {
+    /* background-color: #f8f8f8; */
+    }
+
+    .row-odd {
+    /* background-color: #ffffff; */
+    }
+
+    .col {
+    padding: 5px;
+    text-align: left;
+    }
+
+    .catalog-no {
+    font-weight: bold;
+    text-transform: uppercase;
+    }
+
+    .separator {
+    height: 1px;
+    background-color: none;
+    }
+
+    *{
+        text-transform: lowercase;
+    }
+
+
+</style>
+
+<div class="catalog">
+  {releases.length === 0 && <p>No releases found.</p>}
+  
+  {releases.map((release, index) => {
+    // console.log("Processing release:", release); // Debugging
+    const artist = release.data.artistId 
+      ? artists.find(a => a.id === release.data.artistId) 
+      : null;
+    const artistName = artist ? artist.data.name : '';
+
+    // Find physical artefacts associated with the release
+    const releaseArtefacts = artefacts.filter(a => a.data.catalogNo === release.data.catalogNo);
+
+    return (
+      <>
+        <div class={`row ${index % 2 === 0 ? 'row-even' : 'row-odd'}`}>
+          <div class="col catalog-no">{release.data.catalogNo || "N/A"}</div>
+          <div class="col artist">
+            {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : "Compilation"}
+          </div>
+          <div class="col title">
+            <a href={`/releases/${release.id}`}>{release.data.title || "Untitled"}</a>
+          </div>
+          <div class="col format">
+            {releaseArtefacts.length > 0 
+              ? releaseArtefacts.map(artefact => (
+                  <a href={`/artefacts/${artefact.id}`}>
+                    {artefact.data.format || "Unnamed Artefact"}
+                  </a>
+                ))
+              : "Digital"
+            }
+          </div>
+          <div class="col year">{release.data.releaseDate ? new Date(release.data.releaseDate).getFullYear() : "Unknown"}</div>
+        </div>
+
+        {/* Insert separator except for last item */}
+        {index < releases.length - 1 && <div class="separator"></div>}
+      </>
+    );
+  })}
+</div>

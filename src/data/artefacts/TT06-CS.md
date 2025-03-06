@@ -1,6 +1,6 @@
 ---
 id: "TT06-CS"
-item: "Figure Study (CASSETTE TAPE)"
+item: "Figure Study (CS)"
 catalogNo: "TT06"
 image: "/images/releases/album-one.jpg"
 format: "cassette"

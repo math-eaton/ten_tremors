@@ -1,6 +1,6 @@
 ---
 id: "TT09-CS"
-item: "On Preterition (CASSETTE TAPE)"
+item: "On Preterition (CS)"
 catalogNo: "TT09"
 image: "/images/releases/album-one.jpg"
 format: "cassette"

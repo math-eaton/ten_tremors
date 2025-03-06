@@ -1,6 +1,6 @@
 ---
 id: "TT11-CS"
-item: "Unlock the Stars (CASSETTE TAPE)"
+item: "Unlock the Stars (CS)"
 catalogNo: "TT11"
 image: "/images/releases/album-one.jpg"
 format: "cassette"
