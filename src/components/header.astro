@@ -1,11 +1,12 @@
 ---
 import { Icon } from 'astro-icon/components'
+
+const currentPath = new URL(Astro.request.url).pathname;
 ---
+
 <style>
-header {
-    display: flex;
-    border-bottom: 1px solid rgb(200,200,200);
-}
+/* header {
+} */
 
 ul {
     display: flex;
@@ -19,27 +20,24 @@ a {
     margin: -0.25rem; */
 }
 
-div{
-    margin-left: 2vw;
-}
+/* div{
+} */
 
 [data-icon] {
     /* color: black; */
     /* filter: invert() drop-shadow(0 0 0.75rem rgb(255, 255, 255)); */
     mix-blend-mode: hard-light;
 }
-
-
 </style>
 
-<header>
+<header class="bookend border">
     <div>
         <ul>
             <a href="/"><Icon name="eyeLogo" /></a>
-            <a href="/releases/">releases</a>
-            <a href="/about/">info</a>
-            <a href="/projects/">projects</a>  
-            <a href="/calendar/">calendar</a>
+            {currentPath !== '/releases/' && <a href="/releases/">releases</a>}
+            {currentPath !== '/about/' && <a href="/about/">info</a>}
+            {currentPath !== '/projects/' && <a href="/projects/">projects</a>}
+            {currentPath !== '/calendar/' && <a href="/calendar/">calendar</a>}
         </ul>
     </div>
 </header>

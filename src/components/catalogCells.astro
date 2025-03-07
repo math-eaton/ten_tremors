@@ -13,29 +13,31 @@ const artefacts = await getCollection('artefacts');
 ---
 <style>
   .catalog {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
     padding: 0;
-    margin: 5vh 0 5vh 0;
+    margin: 0;
   }
 
   .row {
     display: grid;
     grid-template-columns: 15% 20% 30% 20% 10%;
     padding: 1vh;
-    border-bottom: 1px solid #ccc;
     align-items: center;
   }
 
+
   .col {
     margin: 2vh;
-    text-align: left;
     max-width: fit-content;
   }
 
   .catalog-no {
     font-weight: bold;
     text-transform: uppercase;
+  }
+
+  .artist {
+    text-align: justify;
   }
 
   .year {
@@ -57,9 +59,6 @@ const artefacts = await getCollection('artefacts');
   }
 
   @media (max-width: 768px) {
-    /* .row {
-      grid-template-columns: 25% 30% 35% 10%;
-    } */
 
     .col {
       margin: 1vh;
@@ -67,40 +66,12 @@ const artefacts = await getCollection('artefacts');
   }
 
   @media (max-width: 480px) {
-    /* .row {
-      grid-template-columns: 15% 30% 30% 25%;
-    } */
-
-    .col {
-      text-align: left;
-    }
 
     .year {
-      text-align: right;
+      visibility: hidden;
     }
   }
 
-  body {
-    font-size: 1rem;
-  }
-
-  @media (max-width: 1200px) {
-    body {
-      font-size: 0.9rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    body {
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    body {
-      font-size: 0.666rem;
-    }
-  }
 </style>
 
 <div class="catalog">
@@ -116,10 +87,10 @@ const artefacts = await getCollection('artefacts');
 
     return (
       <>
-        <div class={`row ${index % 2 === 0 ? 'row-even' : 'row-odd'}`}>
+        <div class={`row ${index % 2 === 0 ? 'row-even' : 'row-odd'} border`}>
           <div class="col catalog-no">{release.data.catalogNo || "N/A"}</div>
           <div class="col artist">
-            {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : "(Compilation)"}
+            {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : "-"}
           </div>
           <div class="col title">
             <a href={`/releases/${release.id}`}>{release.data.title || "Untitled"}</a>

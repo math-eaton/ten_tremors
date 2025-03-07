@@ -22,7 +22,7 @@ const releasesCollection = defineCollection({
     catalogNo: z.string(),
     image: z.string(),
     releaseDate: z.date(),
-    ffo: z.array(z.string()),
+    ffo: z.array(z.string()).optional(),
     streamingLinks: z.array(z.object({
       platform: z.string(),
       url: z.string(),
