@@ -14,17 +14,20 @@ const artefacts = await getCollection('artefacts');
 <style>
   .catalog {
     width: 100%;
-    padding: 0;
+    padding: 2vw 2vw 2vw 0;
     margin: 0;
+    box-sizing: border-box; 
   }
 
   .row {
     display: grid;
-    grid-template-columns: 15% 20% 30% 20% 10%;
+    grid-template-columns: 20% 25% 35% 15% 5%;
     padding: 1vh;
     align-items: center;
   }
 
+  /* .row:first-child {
+  } */
 
   .col {
     margin: 2vh;
@@ -32,12 +35,16 @@ const artefacts = await getCollection('artefacts');
   }
 
   .catalog-no {
-    font-weight: bold;
+    /* font-weight: bold; */
     text-transform: uppercase;
   }
 
   .artist {
     text-align: justify;
+  }
+
+  .format {
+    /* text-align: right; */
   }
 
   .year {
@@ -50,7 +57,7 @@ const artefacts = await getCollection('artefacts');
 
   @media (max-width: 1200px) {
     .row {
-      grid-template-columns: 20% 25% 35% 15% 5%;
+      grid-template-columns: 20% 25% 25% 25% 5%;
     }
 
     .col {
@@ -58,12 +65,6 @@ const artefacts = await getCollection('artefacts');
     }
   }
 
-  @media (max-width: 768px) {
-
-    .col {
-      margin: 1vh;
-    }
-  }
 
   @media (max-width: 480px) {
 
@@ -87,7 +88,7 @@ const artefacts = await getCollection('artefacts');
 
     return (
       <>
-        <div class={`row ${index % 2 === 0 ? 'row-even' : 'row-odd'} border`}>
+        <div class={`row ${index % 2 === 0 ? 'row-even' : 'row-odd'} underline`}>
           <div class="col catalog-no">{release.data.catalogNo || "N/A"}</div>
           <div class="col artist">
             {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : "-"}
