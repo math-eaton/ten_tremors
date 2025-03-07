@@ -38,6 +38,9 @@ a {
             {currentPath !== '/about/' && <a href="/about/">info</a>}
             {currentPath !== '/projects/' && <a href="/projects/">projects</a>}
             {currentPath !== '/calendar/' && <a href="/calendar/">calendar</a>}
+            {(currentPath === '/releases/' || currentPath === '/about/' || currentPath === '/projects/' || currentPath === '/calendar/') && (
+                <li><a href="javascript:history.back()">back</a></li>
+            )}
         </ul>
     </div>
 </header>
