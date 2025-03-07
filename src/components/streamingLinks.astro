@@ -6,7 +6,7 @@ const { streamingLinks } = Astro.props;
   <>
     <ul>
       {streamingLinks.map((link: { url: string; platform: string }) => (
-        <li><a href={link.url}>{link.platform}</a></li>
+        <ul><a href={link.url}>{link.platform}</a></ul>
       ))}
     </ul>
   </>
