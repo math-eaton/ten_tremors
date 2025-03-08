@@ -1,5 +1,6 @@
 ---
 import CollectionLayout from '../layouts/boilerplate.astro';
+import ImageScatter from '../components/imageScatter.astro';
 const pageTitle = 'info';
 ---
 <style>
@@ -10,23 +11,62 @@ const pageTitle = 'info';
     align-items: center;
     width: 100vw;
     height: 600px;
+    text-align: justify;
+  }
+  p {
+    width: 15vw;
+    margin: 2%;
+  }
+  @media (max-width: 480px) {
+    p {
+      width: 40vw;
     }
-    p{
-      width: 25vw;
-    }
+  }
+  p:nth-of-type(2n) {
+    margin-left: 15vw;
+    text-align: justify;
+  }
+  p:nth-of-type(2n+1) {
+    margin-right: 15vw;
+  }
+  p:first-of-type {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  p:last-of-type {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .scatter-container {
+  }
+
+  .scatter-container {
+    filter: invert();
+    scale: 75%;
+    position: fixed;
+    z-index: -1;
+    /* mix-blend-mode: exclusion; */
+    width: 100vw;
+    height: 100vh;
+    right: 0;
+    margin: 5vw;
+    z-index: -1;
+    opacity: 15%;
+  }
+
 </style>
 
 <html>
   <body>
-      <CollectionLayout title={pageTitle}>
-        
-    <div>
-      <p>Ten Tremors is a collective of experimental musicians, writers, video artists, printmakers, & computational designers.</p>
-
-      <p>Our geographic center of mass is in New York, New York.</p>
-
-      <p>@tentremors // tentremors at gmail dot com</p>
-    </div>
+    <CollectionLayout title={pageTitle}>
+      <div>
+        <div class="scatter-container">
+        <ImageScatter alt="ten tremors logos"/>
+        </div>
+        <p>Ten Tremors is a collective of experimental musicians, writers, video artists, printmakers, & computational designers.</p>
+        <p>Our geographic center of mass is in New York, New York.</p>
+        <p>@tentremors // tentremors at gmail dot com</p>
+      </div>
+    </CollectionLayout>
   </body>
 </html>
-  </CollectionLayout>
