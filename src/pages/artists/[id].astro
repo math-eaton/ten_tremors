@@ -15,20 +15,8 @@ const artist = await getEntry('artists', id);
 
 if (!artist) throw new Error(`Artist not found: ${id}`);
 
-const releases = (await getCollection('releases')).filter(r => r.data.artistId === id);
 ---
 
 <CollectionLayout title={artist.data.name}>
   <ArtistInfo artist={artist} />
-
-  <h2>Discography</h2>
-  {releases.length > 0 ? (
-    <ul>
-      {releases.map(release => (
-        <li><a href={`/releases/{release.id}`}>{release.data.title}</a></li>
-      ))}
-    </ul>
-  ) : (
-    <p>No releases found.</p>
-  )}
 </CollectionLayout>

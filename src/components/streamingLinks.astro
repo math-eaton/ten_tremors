@@ -2,12 +2,10 @@
 const { streamingLinks } = Astro.props;
 ---
 
-{streamingLinks.length > 0 && (
-  <>
-    <ul>
-      {streamingLinks.map((link: { url: string; platform: string }) => (
-        <ul><a href={link.url}>{link.platform}</a></ul>
-      ))}
-    </ul>
-  </>
+{streamingLinks?.length > 0 && (
+  <ul>
+    {streamingLinks.map((link: { url: string; platform: string }) => (
+      <ul><a href={link.url}>{link.platform}</a></ul>
+    ))}
+  </ul>
 )}

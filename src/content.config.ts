@@ -26,7 +26,7 @@ const releasesCollection = defineCollection({
     streamingLinks: z.array(z.object({
       platform: z.string(),
       url: z.string(),
-    })),
+    })).optional(),
     // credits: z.array(z.object({
     //   music: z.string(),
     //   art: z.string(),

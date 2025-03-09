@@ -25,8 +25,7 @@ const artist = release.data.artistId ? artists.find(a => a.id === release.data.a
 
   {release.data.ffo && release.data.ffo.length > 0 && (
     <>
-      <h2>FFO</h2>
-      <p>{release.data.ffo.join(", ")}</p>
+      <p>ffo: {release.data.ffo.join(", ")}</p>
     </>
   )}
 

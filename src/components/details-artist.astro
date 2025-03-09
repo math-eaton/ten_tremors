@@ -1,7 +1,33 @@
 ---
-const { artist } = Astro.props;
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+    const artists = await getCollection('artists');
+    return artists.map(artist => ({
+        params: { id: artist.id }
+    }));
+}
+
+const { id } = Astro.params;
+const releases = (await getCollection('releases')).filter(r => r.data.artistId === id);
+
+const artist = await getEntry('artists', id);
+
+if (!artist) throw new Error(`Artist not found: ${id}`);
+
+const websiteUrl = artist.data.website && artist.data.website.startsWith('http') ? artist.data.website : `https://${artist.data.website || ''}`;
+
 ---
 
 <h1>{artist.data.name}</h1>
 <img src={artist.data.image} alt={artist.data.name} />
-<p>{artist.data.website && <a href={artist.data.website}>website</a>}</p>
+<h2 class="external">{artist.data.website && <a href={websiteUrl} target="_blank" rel="noopener noreferrer">&#9939</a>}</h2>
+{releases.length > 0 ? (
+        <ul>
+            {releases.map(release => (
+                <ul><a href={`/releases/${release.id}`}>{release.data.title}</a></ul>
+            ))}
+        </ul>
+    ) : (
+        <p>No releases found.</p>
+    )}

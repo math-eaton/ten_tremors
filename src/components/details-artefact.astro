@@ -6,7 +6,7 @@ const { artefact, release } = Astro.props;
 <img src={artefact.data.image} alt={artefact.data.item} />
 
 {release && (
-  <p>digital link: <a href={`/releases/{release.id}`}>{release.data.title}</a></p>
+  <p><a href={`/releases/{release.id}`}>{release.data.title} (digital link)</a></p>
 )}
 
 <p>{artefact.data.format}</p>

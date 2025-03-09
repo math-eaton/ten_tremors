@@ -95,7 +95,7 @@ const artefacts = await getCollection('artefacts');
         <div class={`row ${index % 2 === 0 ? 'row-even' : 'row-odd'} underline`}>
           <div class="col catalog-no">{release.data.catalogNo || "N/A"}</div>
           <div class="col artist">
-            {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : "-"}
+            {artist ? <a href={`/artists/${artist.id}`}>{artistName}</a> : <span>&#10211;</span>}
           </div>
           <div class="col title">
             <a href={`/releases/${release.id}`}>{release.data.title || "Untitled"}</a>
