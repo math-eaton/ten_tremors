@@ -2,6 +2,7 @@
 import CollectionLayout from '../../layouts/boilerplate.astro';
 import { getCollection } from 'astro:content';
 import CatalogGrid from '../../components/catalogCells.astro';
+import ImageScatter from '../../components/imageScatter.astro';
 
 // Fetch collections
 const releases = await getCollection('releases');
@@ -24,5 +25,8 @@ const pageTitle = 'Releases';
 ---
 
 <CollectionLayout title={pageTitle}>
+  <div class="container">
+    <ImageScatter alt="ten tremors logos"/>
+  </div>
   <CatalogGrid releases={releases} artists={artists} artefacts={artefacts} />
 </CollectionLayout>

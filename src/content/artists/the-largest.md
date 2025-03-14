@@ -1,0 +1,9 @@
+---
+id: "the-largest"
+name: "The Largest"
+cover: "/images/artists/the-largest.jpg"
+discography: ["TT05", "TT12"]
+website: ""
+---
+
+asdasdf

@@ -4,10 +4,11 @@ import { glob } from 'astro/loaders';
 
 // Artists
 const artistsCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/data/artists" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/artists" }),
   schema: z.object({
     name: z.string(),
-    image: z.string(),
+    cover: image(),
+    coverAlt: z.string(),
     discography: z.array(z.string()),
     website: z.string().optional(),
   }),
@@ -15,12 +16,13 @@ const artistsCollection = defineCollection({
 
 // Releases
 const releasesCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/data/releases" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/releases" }),
   schema: z.object({
     title: z.string(),
     artistId: z.string().nullable(),
     catalogNo: z.string(),
-    image: z.string(),
+    cover: image(),
+    coverAlt: z.string(),
     releaseDate: z.date(),
     ffo: z.array(z.string()).optional(),
     streamingLinks: z.array(z.object({
@@ -37,11 +39,12 @@ const releasesCollection = defineCollection({
 
 // Artefacts
 const artefactsCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/data/artefacts" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/artefacts" }),
   schema: z.object({
     item: z.string(),
     catalogNo: z.string(), // Links to a release
-    image: z.string(),
+    cover: image(),
+    coverAlt: z.string(),
     format: z.string(),
     price: z.number(),
     stock: z.number().int(),
@@ -50,11 +53,12 @@ const artefactsCollection = defineCollection({
 
 // Projects
 const projectsCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/data/projects" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: z.object({
     title: z.string(),
     author: z.string().default("ANONYMOUS"),
-    image: z.string(),
+    cover: image(),
+    coverAlt: z.string(),
     website: z.string(),
     // credits: z.array(z.object({
     //   a: z.string(),
@@ -65,12 +69,13 @@ const projectsCollection = defineCollection({
 });
 
 const eventsCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/data/events" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/events" }),
   schema: z.object({
     event: z.string(),
     date: z.date(),
     location: z.string(),
-    image: z.string(),
+    cover: image(),
+    coverAlt: z.string(),
     description: z.string(),
   }),
 });

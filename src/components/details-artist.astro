@@ -1,5 +1,6 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
+import Image from 'astro/components/Image.astro';
 
 export async function getStaticPaths() {
     const artists = await getCollection('artists');
@@ -20,7 +21,7 @@ const websiteUrl = artist.data.website && artist.data.website.startsWith('http')
 ---
 
 <h1>{artist.data.name}</h1>
-<img src={artist.data.image} alt={artist.data.name} />
+<Image src={artist.data.image} alt={artist.data.name} />
 <h2 class="external">{artist.data.website && <a href={websiteUrl} target="_blank" rel="noopener noreferrer">&#9939</a>}</h2>
 {releases.length > 0 ? (
         <ul>
