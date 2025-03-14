@@ -3,6 +3,7 @@ id: "SALVATION"
 item: "SALVATION TEE"
 catalogNo: "TT13"
 cover: "/images/merch/band-tee-1.jpg"
+coverAlt: ""
 format: "apparel"
 price: 20.00
 stock: 50
