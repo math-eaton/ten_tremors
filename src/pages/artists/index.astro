@@ -13,7 +13,7 @@ const pageTitle = 'artists';
       {artists.map(artist => (
         <div>
           <a href={`/artists/${artist.id}`}>
-            <img src={artist.data.image} alt={artist.data.name} width="100" />
+            <img src={artist.data.cover} alt={artist.data.name} width="100" />
             {artist.data.name}
           </a>
         </div>

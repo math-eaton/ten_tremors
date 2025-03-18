@@ -2,7 +2,7 @@
 id: "TT06-CDR"
 item: "Figure Study (CDR)"
 catalogNo: "TT06"
-cover: "/images/releases/album-one.jpg"
+cover: ""
 coverAlt: ""
 format: "compact disc"
 price: 7.00

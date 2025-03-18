@@ -7,7 +7,7 @@ const artistsCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/artists" }),
   schema: z.object({
     name: z.string(),
-    cover: image(),
+    cover: z.string(),
     coverAlt: z.string(),
     discography: z.array(z.string()),
     website: z.string().optional(),
@@ -17,24 +17,26 @@ const artistsCollection = defineCollection({
 // Releases
 const releasesCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/releases" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
+    id: z.string().default(""), // computed
     title: z.string(),
     artistId: z.string().nullable(),
     catalogNo: z.string(),
-    cover: image(),
-    coverAlt: z.string(),
+    cover: image().optional(), // Astro’s native helper!
+    coverAlt: z.string().optional(),
     releaseDate: z.date(),
     ffo: z.array(z.string()).optional(),
-    streamingLinks: z.array(z.object({
-      platform: z.string(),
-      url: z.string(),
-    })).optional(),
-    // credits: z.array(z.object({
-    //   music: z.string(),
-    //   art: z.string(),
-    //   mix: z.string(),
-    // })),
-  }),
+    streamingLinks: z.array(
+      z.object({
+        platform: z.string(),
+        url: z.string(),
+      })
+    ).optional(),
+  }).transform((entry) => ({
+    ...entry,
+    id: entry.id || entry.catalogNo,
+    cover: entry.cover || `./${entry.catalogNo}.png`,
+  })),
 });
 
 // Artefacts
@@ -43,7 +45,7 @@ const artefactsCollection = defineCollection({
   schema: z.object({
     item: z.string(),
     catalogNo: z.string(), // Links to a release
-    cover: image(),
+    cover: z.string(),
     coverAlt: z.string(),
     format: z.string(),
     price: z.number(),
@@ -57,7 +59,7 @@ const projectsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     author: z.string().default("ANONYMOUS"),
-    cover: image(),
+    cover: z.string(),
     coverAlt: z.string(),
     website: z.string(),
     // credits: z.array(z.object({
@@ -74,7 +76,7 @@ const eventsCollection = defineCollection({
     event: z.string(),
     date: z.date(),
     location: z.string(),
-    cover: image(),
+    cover: z.string(),
     coverAlt: z.string(),
     description: z.string(),
   }),

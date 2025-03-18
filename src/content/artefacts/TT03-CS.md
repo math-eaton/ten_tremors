@@ -2,7 +2,7 @@
 id: "TT03-CS"
 item: "roxbury & roxbury, too. (CS)"
 catalogNo: "TT03"
-cover: "/images/releases/album-one.jpg"
+cover: ""
 coverAlt: ""
 format: "cassette"
 price: 7.00

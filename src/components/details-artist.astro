@@ -21,7 +21,7 @@ const websiteUrl = artist.data.website && artist.data.website.startsWith('http')
 ---
 
 <h1>{artist.data.name}</h1>
-<Image src={artist.data.image} alt={artist.data.name} />
+<!-- <Image src={artist.data.cover} alt={artist.data.name} /> -->
 <h2 class="external">{artist.data.website && <a href={websiteUrl} target="_blank" rel="noopener noreferrer">&#9939</a>}</h2>
 {releases.length > 0 ? (
         <ul>

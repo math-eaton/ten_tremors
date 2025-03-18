@@ -2,7 +2,7 @@
 id: "TT02-CS"
 item: "Body One / Body Two (CS)"
 catalogNo: "TT02"
-cover: "/images/releases/album-one.jpg"
+cover: ""
 coverAlt: ""
 format: "cassette"
 price: 7.00

@@ -2,10 +2,19 @@
 const { streamingLinks } = Astro.props;
 ---
 
+<style>
+  ul {
+  text-transform: uppercase;
+  font-style: italic;
+  }
+  
+</style>
+
 {streamingLinks?.length > 0 && (
   <ul>
     {streamingLinks.map((link: { url: string; platform: string }) => (
       <ul><a href={link.url}>{link.platform}</a></ul>
     ))}
   </ul>
+  <h3>*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*</h3>
 )}

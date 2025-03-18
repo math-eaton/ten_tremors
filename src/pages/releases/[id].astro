@@ -1,33 +1,41 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
-import CollectionLayout from '../../layouts/boilerplate.astro';
-import ReleaseInfo from '../../components/details-release.astro';
-import StreamingLinks from '../../components/streamingLinks.astro';
+import { getEntry, getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import CollectionLayout from "../../layouts/boilerplate.astro";
+import ReleaseInfo from "../../components/details-release.astro";
+import StreamingLinks from "../../components/streamingLinks.astro";
 
 export async function getStaticPaths() {
-  const releases = await getCollection('releases');
-  return releases.map(release => ({
-    params: { id: release.id }
-  }));
+  const releases = await getCollection("releases");
+  return releases.map(release => ({ params: { id: release.id } }));
 }
 
 const { id } = Astro.params;
 const release = await getEntry('releases', id);
-
 if (!release) throw new Error(`Release not found: ${id}`);
 
-const artists = await getCollection('artists');
-const artist = release.data.artistId ? artists.find(a => a.id === release.data.artistId) : null;
+const artists = await getCollection("artists");
+const artist = release.data.artistId
+  ? artists.find(a => a.id === release.data.artistId)
+  : null;
 ---
 
 <CollectionLayout title={release.data.title}>
   <ReleaseInfo release={release} artist={artist} />
 
-  {release.data.ffo && release.data.ffo.length > 0 && (
-    <>
-      <p>ffo: {release.data.ffo.join(", ")}</p>
-    </>
+  {release.data.cover && (
+    <Image 
+      src={release.data.cover}
+      alt={release.data.coverAlt || release.data.title}
+      width={600} 
+      quality={85} 
+      format="webp"
+    />
   )}
 
+  {release.data.ffo && release.data.ffo.length > 0 && (
+    <p>ffo: {release.data.ffo.join(", ")}</p>
+  )}
+  
   <StreamingLinks streamingLinks={release.data.streamingLinks} />
 </CollectionLayout>

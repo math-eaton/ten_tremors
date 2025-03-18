@@ -2,7 +2,7 @@
 id: "TT09-CS"
 item: "On Preterition (CS)"
 catalogNo: "TT09"
-cover: "/images/releases/album-one.jpg"
+cover: ""
 coverAlt: ""
 format: "cassette"
 price: 7.00

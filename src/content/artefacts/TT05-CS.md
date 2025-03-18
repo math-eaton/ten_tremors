@@ -2,7 +2,7 @@
 id: "TT05-CS"
 item: "Test Cassette 02 (CS)"
 catalogNo: "TT05"
-cover: "/images/releases/album-one.jpg"
+cover: ""
 coverAlt: ""
 format: "cassette"
 price: 7.00

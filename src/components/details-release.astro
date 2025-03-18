@@ -3,9 +3,17 @@ const { release, artist } = Astro.props;
 const artistName = artist ? artist.data.name : "(COMPILATION)";
 const artistId = artist ? artist.id : null;
 ---
+<style>
+
+  .cover {
+    max-width: 33vw;
+    height: auto;
+  }
+
+  </style>
 
 <h1>{release.data.title}</h1>
-<img src={release.data.cover} alt={release.data.title} />
+<!-- <img class="cover" src={release.data.cover} alt={release.data.title} /> -->
 
 <p>
   {artist ? <a href={`/artists/${artistId}`}>{artistName}</a> : artistName}

@@ -2,7 +2,7 @@
 id: "TT04-CS"
 item: "Held Radiant (CS)"
 catalogNo: "TT04"
-cover: "/images/releases/album-one.jpg"
+cover: ""
 coverAlt: ""
 format: "cassette"
 price: 7.00

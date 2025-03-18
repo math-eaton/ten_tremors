@@ -2,7 +2,7 @@
 id: "TT10-CS"
 item: "STRESSTEST (CS)"
 catalogNo: "TT10"
-cover: "/images/releases/album-one.jpg"
+cover: ""
 coverAlt: ""
 format: "cassette"
 price: 7.00
