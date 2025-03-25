@@ -1,27 +1,29 @@
 ---
-const images = Object.values(
+import { useEffect } from 'react';
+
+let images = Object.values(
   import.meta.glob('/src/images/scatter/*.{png,jpg,jpeg}', { eager: true })
 );
 
-// extract URLs from img directory
-const imageURLs = images.map((mod) =>
+// Extract URLs from img directory
+let imageURLs = images.map((mod: any) =>
   typeof mod.default === 'object' && mod.default.src ? mod.default.src : mod.default
 );
 
-// shuffle input
-const shuffleArray = (arr) => arr.sort(() => Math.random() - 0.5);
+// Shuffle input
+let shuffleArray = (arr: any[]) => arr.sort(() => Math.random() - 0.5);
 
-// subset input (at least 80% of images)
-const minImages = Math.ceil(imageURLs.length * 0.8);
-const maxImages = imageURLs.length;
-const numImagesToUse = Math.floor(Math.random() * (maxImages - minImages + 1)) + minImages;
+// Subset input (at least 80% of images)
+let minImages = Math.ceil(imageURLs.length * 0.8);
+let maxImages = imageURLs.length;
+let numImagesToUse = Math.floor(Math.random() * (maxImages - minImages + 1)) + minImages;
 
-const selectedImageURLs = shuffleArray(imageURLs).slice(0, numImagesToUse);
+let selectedImageURLs = shuffleArray(imageURLs).slice(0, numImagesToUse);
 ---
 
 <style>
   .scatter-container {
-    position: fixed;
+    position: absolute;
     width: 100vw;
     height: 50vh;
     left: 0;
@@ -30,7 +32,7 @@ const selectedImageURLs = shuffleArray(imageURLs).slice(0, numImagesToUse);
   }
 
   .scatter-container img {
-    transition: transform 0.5s ease, opacity 0.3s ease;
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
     cursor: pointer;
   }
 </style>
@@ -43,6 +45,9 @@ const selectedImageURLs = shuffleArray(imageURLs).slice(0, numImagesToUse);
 ></div>
 
 <script>
+  let accumulatedScroll = 0;
+  let scrollThreshold = window.innerHeight * 0.2; // Recalculate after every ~75vh scrolled
+
   /**
    * @param {number} min - Minimum value.
    * @param {number} max - Maximum value.
@@ -53,56 +58,69 @@ const selectedImageURLs = shuffleArray(imageURLs).slice(0, numImagesToUse);
   }
 
   /**
-   * noisy square packing
+   * Clears existing images from the container to prevent duplicates.
+   * @param {HTMLElement} container - The container element.
+   */
+  function clearImages(container) {
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+  }
+
+  /**
+   * Noisy square packing with repositioning.
    * @param {string} containerId - The id of the container element.
    * @param {string[]} filenames - An array of image URLs.
    */
   function placeImagesWithNoise(containerId, filenames) {
-    const container = document.getElementById(containerId);
+    let container = document.getElementById(containerId);
     if (!container) {
       console.error(`Container with id ${containerId} not found`);
       return;
     }
-    const containerRect = container.getBoundingClientRect();
 
-    const totalImages = filenames.length;
+    // Remove previous images before recalculating positions
+    clearImages(container);
+
+    let containerRect = container.getBoundingClientRect();
+    let totalImages = filenames.length;
     if (totalImages === 0) return;
 
-    const rows = Math.ceil(Math.sqrt(totalImages));
-    const cols = Math.ceil(totalImages / rows);
+    let rows = Math.ceil(Math.sqrt(totalImages));
+    let cols = Math.ceil(totalImages / rows);
 
-    // calc base img size
-    const imgWidth = Math.floor(containerRect.width / cols);
-    const imgHeight = Math.floor(containerRect.height / rows);
-    const baseSize = Math.min(imgWidth, imgHeight) * 0.85;
+    // Calculate base img size
+    let imgWidth = Math.floor(containerRect.width / cols);
+    let imgHeight = Math.floor(containerRect.height / rows);
+    let baseSize = Math.min(imgWidth, imgHeight) * 0.85;
 
     filenames.forEach((filename, index) => {
-      const img = document.createElement('img');
+      let img = document.createElement('img');
       img.src = filename;
       img.style.width = `${baseSize}px`;
       img.style.height = `${baseSize}px`;
       img.style.visibility = 'hidden';
 
       img.addEventListener('load', () => {
-        const row = Math.floor(index / cols);
-        const col = index % cols;
+        let row = Math.floor(index / cols);
+        let col = index % cols;
 
         let baseLeft = col * imgWidth;
         let baseTop = row * imgHeight;
 
-        // calc spread
-        const jitterX = randomBetween(-imgWidth * 0.3, imgWidth * 0.3);
-        const jitterY = randomBetween(-imgHeight * 0.3, imgHeight * 0.3);
+        // Apply controlled random spread
+        let jitterX = randomBetween(-imgWidth * 0.3, imgWidth * 0.3);
+        let jitterY = randomBetween(-imgHeight * 0.3, imgHeight * 0.3);
         
-        // displace
+        // Displacement within bounds
         let finalLeft = Math.min(Math.max(baseLeft + jitterX, 0), containerRect.width - baseSize);
         let finalTop = Math.min(Math.max(baseTop + jitterY, 0), containerRect.height - baseSize);
 
-        // scale
-        const scale = randomBetween(0.9, 1.1);
+        // Random scale
+        let scale = randomBetween(0.9, 1.1);
 
-        // rotation in degrees
-        const rotation = randomBetween(-10, 10);
+        // Random rotation
+        let rotation = randomBetween(-10, 10);
 
         img.style.transform = `translate(${finalLeft}px, ${finalTop}px) scale(${scale}) rotate(${rotation}deg)`;
         img.style.visibility = 'visible';
@@ -112,9 +130,39 @@ const selectedImageURLs = shuffleArray(imageURLs).slice(0, numImagesToUse);
     });
   }
 
+  /**
+   * Handles scrolling and triggers repositioning after scrolling a threshold distance.
+   */
+  function handleScroll() {
+    console.log("handleScroll() triggered");
+
+    accumulatedScroll += Math.abs(window.scrollY - accumulatedScroll);
+    console.log(`Accumulated Scroll: ${accumulatedScroll}, Threshold: ${scrollThreshold}`);
+
+    if (accumulatedScroll >= scrollThreshold) {
+      accumulatedScroll = 0; // Reset counter after re-triggering
+      console.log("Repositioning images!");
+
+      let container = document.getElementById('super-container');
+      let filenames = JSON.parse(container.getAttribute('data-filenames'));
+      placeImagesWithNoise('super-container', filenames);
+    }
+  }
+
+  // Initial placement
   window.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('super-container');
-    const filenames = JSON.parse(container.getAttribute('data-filenames'));
+    let container = document.getElementById('super-container');
+    let filenames = JSON.parse(container.getAttribute('data-filenames'));
     placeImagesWithNoise('super-container', filenames);
+  });
+
+  // Scroll listener
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', () => console.log('Scroll event triggered'));
+  window.addEventListener('scroll', () => {
+    console.log(`Scroll position: ${window.scrollY}`);
+  });
+  window.addEventListener('scroll', () => {
+    console.log(`Accumulated scroll: ${accumulatedScroll}`);
   });
 </script>

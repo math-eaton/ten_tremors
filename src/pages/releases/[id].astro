@@ -20,6 +20,14 @@ const artist = release.data.artistId
   : null;
 ---
 
+<style>
+  img{
+    outline: 2px solid rgb(200, 200, 200);
+    outline-offset: -2px;
+    object-fit: cover;
+  }
+</style>
+
 <CollectionLayout title={release.data.title}>
   <ReleaseInfo release={release} artist={artist} />
 
@@ -27,7 +35,8 @@ const artist = release.data.artistId
     <Image 
       src={release.data.cover}
       alt={release.data.coverAlt || release.data.title}
-      width={600} 
+      width={450} 
+      height={450} 
       quality={85} 
       format="webp"
     />

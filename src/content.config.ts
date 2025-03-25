@@ -22,8 +22,8 @@ const releasesCollection = defineCollection({
     title: z.string(),
     artistId: z.string().nullable(),
     catalogNo: z.string(),
-    cover: image().optional(), // Astro’s native helper!
-    coverAlt: z.string().optional(),
+    cover: image(),
+    coverAlt: z.string(),
     releaseDate: z.date(),
     ffo: z.array(z.string()).optional(),
     streamingLinks: z.array(

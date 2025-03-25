@@ -1,5 +1,16 @@
 ---
 const { streamingLinks } = Astro.props;
+
+import { getEntry, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const releases = await getCollection("releases");
+  return releases.map(release => ({ params: { id: release.id } }));
+}
+
+const { id } = Astro.params;
+const release = await getEntry('releases', id);
+
 ---
 
 <style>
@@ -7,14 +18,18 @@ const { streamingLinks } = Astro.props;
   text-transform: uppercase;
   font-style: italic;
   }
+
+  a {
+    text-decoration: underline;
+    }
   
 </style>
 
 {streamingLinks?.length > 0 && (
   <ul>
+    <p>stream "{release.data.title}"</p>
     {streamingLinks.map((link: { url: string; platform: string }) => (
       <ul><a href={link.url}>{link.platform}</a></ul>
     ))}
   </ul>
-  <h3>*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*</h3>
 )}
