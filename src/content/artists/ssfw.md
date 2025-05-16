@@ -7,4 +7,3 @@ discography: ["TT11"]
 website: "https://ssfw.bandcamp.com/"
 ---
 
-asdasdf

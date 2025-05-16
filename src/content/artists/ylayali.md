@@ -7,4 +7,3 @@ discography: ["TT05"]
 website: "https://ylayali.bandcamp.com/"
 ---
 
-asdasdf

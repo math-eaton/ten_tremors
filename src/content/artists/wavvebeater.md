@@ -7,4 +7,3 @@ discography: ["TT01"]
 website: ""
 ---
 
-asdasdf

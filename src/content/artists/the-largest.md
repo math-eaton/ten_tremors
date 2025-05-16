@@ -7,4 +7,3 @@ discography: ["TT05", "TT12"]
 website: ""
 ---
 
-asdasdf
