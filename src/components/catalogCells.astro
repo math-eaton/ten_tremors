@@ -14,15 +14,14 @@ const artefacts = await getCollection('artefacts');
 <style>
   .catalog {
     width: 100%;
-    padding: 2vw 2vw 2vw 0;
-    margin: 0;
     box-sizing: border-box; 
+    /* overflow-wrap: break-word; */
   }
 
   .row {
     display: grid;
     grid-template-columns: 20% 25% 35% 15% 5%;
-    padding: 1vh;
+    margin: 1vh;
     align-items: center;
   }
 
@@ -72,8 +71,23 @@ const artefacts = await getCollection('artefacts');
 
   @media (max-width: 480px) {
 
+    /* html {
+          overflow-x: hidden;
+          overflow-y: auto;
+          display: flex;
+    } */
+
+    .catalog {
+      font-size: 0.7rem;
+    }
+
+    .row {
+      grid-template-columns: 20% 25% 35% 20%;
+      padding: 0;
+    }
+
     .year {
-      visibility: hidden;
+      display: none;
     }
   }
 

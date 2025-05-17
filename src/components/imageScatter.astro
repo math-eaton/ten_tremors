@@ -23,12 +23,13 @@ let selectedImageURLs = shuffleArray(imageURLs).slice(0, numImagesToUse);
 
 <style>
   .scatter-container {
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 50vh;
     left: 0;
-    margin: 5vw;
+    /* margin: 5vw; */
     z-index: -1;
+    overflow: auto;
   }
 
   .scatter-container img {
@@ -157,12 +158,12 @@ let selectedImageURLs = shuffleArray(imageURLs).slice(0, numImagesToUse);
   });
 
   // Scroll listener
-  window.addEventListener('scroll', handleScroll);
-  window.addEventListener('scroll', () => console.log('Scroll event triggered'));
-  window.addEventListener('scroll', () => {
-    console.log(`Scroll position: ${window.scrollY}`);
-  });
-  window.addEventListener('scroll', () => {
-    console.log(`Accumulated scroll: ${accumulatedScroll}`);
-  });
+  // window.addEventListener('scroll', handleScroll);
+  // window.addEventListener('scroll', () => console.log('Scroll event triggered'));
+  // window.addEventListener('scroll', () => {
+  //   console.log(`Scroll position: ${window.scrollY}`);
+  // });
+  // window.addEventListener('scroll', () => {
+  //   console.log(`Accumulated scroll: ${accumulatedScroll}`);
+  // });
 </script>
