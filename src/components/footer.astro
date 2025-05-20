@@ -6,6 +6,8 @@ import Social from "./social.astro"
         height: 100%;
         display: flex;
         flex-direction: column;
+        max-width: 100%;
+        overflow-x: hidden;
     }
     main {
         flex: 1;
@@ -15,8 +17,11 @@ import Social from "./social.astro"
         position: relative;
         bottom: 0;
         width: 100%;
+        max-width: 100%;
         list-style-type: none;
         padding-top: 5vh;
+        margin-top: auto;
+        box-sizing: border-box;
     }
 
     div {

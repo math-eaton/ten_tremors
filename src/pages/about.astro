@@ -9,9 +9,11 @@ const pageTitle = 'info';
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
     height: 600px;
     text-align: justify;
+    box-sizing: border-box;
   }
   p {
     width: 15vw;
@@ -45,13 +47,11 @@ const pageTitle = 'info';
     scale: 75%;
     position: fixed;
     z-index: -1;
-    /* mix-blend-mode: exclusion; */
-    /* width: 100vw; */
-    /* height: 100vh; */
+    width: 100%;
+    max-width: 100%;
     right: 0;
-    /* margin: 5vw; */
-    z-index: -1;
     opacity: 15%;
+    overflow: hidden;
   }
 
 </style>

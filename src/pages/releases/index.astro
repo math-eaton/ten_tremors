@@ -25,10 +25,27 @@ const pageTitle = 'Releases';
 ---
 
 <CollectionLayout title={pageTitle}>
-  <body>
-  <div class="container">
-    <ImageScatter alt="ten tremors logos"/>
+  <div class="releases-container">
+    <div class="scatter-wrapper">
+      <ImageScatter alt="ten tremors logos"/>
+    </div>
+    <CatalogGrid releases={releases} artists={artists} artefacts={artefacts} />
   </div>
-  <CatalogGrid releases={releases} artists={artists} artefacts={artefacts} />
-  </body>
+
+  <style>
+    .releases-container {
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding-bottom: 2vh;
+    }
+    
+    .scatter-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 2vh;
+    }
+  </style>
 </CollectionLayout>

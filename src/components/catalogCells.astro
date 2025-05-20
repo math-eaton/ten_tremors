@@ -14,8 +14,13 @@ const artefacts = await getCollection('artefacts');
 <style>
   .catalog {
     width: 100%;
-    box-sizing: border-box; 
-    /* overflow-wrap: break-word; */
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
   }
 
   .row {
@@ -23,14 +28,15 @@ const artefacts = await getCollection('artefacts');
     grid-template-columns: 20% 25% 35% 15% 5%;
     margin: 1vh;
     align-items: center;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  /* .row:first-child {
-  } */
-
   .col {
-    margin: 2vh;
-    max-width: fit-content;
+    margin: 1.5vh;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .catalog-no {
@@ -64,26 +70,25 @@ const artefacts = await getCollection('artefacts');
     }
 
     .col {
-      margin: 1.5vh;
+      margin: 1.2vh;
     }
   }
 
 
   @media (max-width: 480px) {
-
-    /* html {
-          overflow-x: hidden;
-          overflow-y: auto;
-          display: flex;
-    } */
-
     .catalog {
       font-size: 0.7rem;
+      margin-bottom: 4vh;
     }
 
     .row {
       grid-template-columns: 20% 25% 35% 20%;
       padding: 0;
+      margin: 0.8vh;
+    }
+
+    .col {
+      margin: 1vh;
     }
 
     .year {
